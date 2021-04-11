@@ -10,6 +10,19 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// Movie
+type Movie struct {
+	ID       string    `json:"id"`
+	Title    string    `json:"title"`
+	Director *Director `json:director`
+}
+
+// Author Struct
+type Director struct {
+	Firstname string `json:"firstname"`
+	Lastname  string `json:"lastname"`
+}
+
 // Get all movies
 func getMovies(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
@@ -68,19 +81,6 @@ func deleteMovie(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(movies)
 }
 
-// Movie struct
-type Movie struct {
-	ID       string    `json:"id"`
-	Title    string    `json:"title"`
-	Director *Director `json:director`
-}
-
-// Author Struct
-type Director struct {
-	Firstname string `json:"firstname"`
-	Lastname  string `json:"lastname"`
-}
-
 // Movie var as a slice of Movie structures
 var movies []Movie
 
@@ -99,7 +99,7 @@ func main() {
 	r.HandleFunc("/api/movies/{id}", getMovie).Methods("GET")
 	r.HandleFunc("/api/movies/create", createMovie).Methods("POST")
 	r.HandleFunc("/api/movies/{id}", updateMovie).Methods("PUT")
-	r.HandleFunc("/api/movies/{id}", deleteMovie).Methods("DELTE")
+	r.HandleFunc("/api/movies/{id}", deleteMovie).Methods("DELETE")
 	log.Fatal(http.ListenAndServe(":8080", r))
 
 }
