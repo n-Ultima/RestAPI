@@ -97,7 +97,7 @@ func main() {
 	// Handlers
 	r.HandleFunc("/api/movies", getMovies).Methods("GET")
 	r.HandleFunc("/api/movies/{id}", getMovie).Methods("GET")
-	r.HandleFunc("/api/movies/create", createMovie).Methods("POST")
+	r.HandleFunc("/api/movies/", createMovie).Methods("POST")
 	r.HandleFunc("/api/movies/{id}", updateMovie).Methods("PUT")
 	r.HandleFunc("/api/movies/{id}", deleteMovie).Methods("DELETE")
 	log.Fatal(http.ListenAndServe(":8080", r))
